@@ -1,0 +1,32 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Тест: Россия и Европа</title><style>
+body{font:16px/1.5 system-ui,sans-serif;background:#f2f4f8;color:#26324a;margin:0}main{max-width:800px;margin:auto;padding:20px}header,.q,#result{background:#fff;border-radius:16px;padding:20px;margin:14px 0}header{background:linear-gradient(130deg,#e8edff,#f8eefa)}h1{line-height:1.2}h2{font-size:1.1rem}.muted{color:#68738a}.opt{display:block;padding:10px;margin:7px 0;border:1px solid #dfe4ee;border-radius:10px;cursor:pointer}.opt:has(input:checked){background:#f0f3ff;border-color:#5369a8}button{border:0;border-radius:10px;padding:12px 16px;margin:8px 8px 8px 0;font:inherit;font-weight:bold;cursor:pointer}.primary{background:#5369a8;color:white}.secondary{background:#e4e8f0}.fb{display:none;padding:10px;border-radius:9px;margin-top:10px}.good{background:#e4f5e9}.bad{background:#ffebea}progress{width:100%}</style></head><body><main><header><p class="muted">ИСТОРИЯ · МИНИ-ТЕСТ</p><h1>Россия и Европа на рубеже XVIII–XIX веков</h1><p class="muted">10 вопросов по конспекту. Отметь ответы и нажми «Проверить тест».</p><progress id="prog" value="0" max="10"></progress><small id="count">Отвечено: 0 из 10</small></header><form id="quiz"></form><button class="primary" id="check" type="button">Проверить тест</button><button class="secondary" id="reset" type="button">Начать заново</button><section id="result" hidden><h2 id="score"></h2><p id="msg"></p></section></main><script>
+const data=[
+["В каком году началась Французская революция?",["1775 год","1789 год","1792 год","1801 год"],1,"1789 год считается началом Французской революции."],
+["Какой акт Павел I издал в 1797 году, чтобы упорядочить наследование престола?",["Акт о престолонаследии","Манифест об отмене крепостного права","Декларацию прав человека","Вестфальский мир"],0,"Акт 1797 года установил порядок наследования престола."],
+["Наполеон стал императором Франции в 1804 году.",["Верно","Неверно"],0,"В 1804 году Наполеон провозгласил себя императором французов.",true],
+["Что означает принцип баланса сил в международных отношениях?",["Объединение стран под одним правителем","Отказ государств от внешней политики","Стремление не допустить господства одной державы","Объединение государств по религии"],2,"Баланс сил предполагает, что государства не допускают чрезмерного усиления одной державы."],
+["Какое событие связано с Вестфальским миром 1648 года?",["Окончание Столетней войны","Окончание Тридцатилетней войны","Поражение Наполеона при Ватерлоо","Начало Французской революции"],1,"Вестфальский мир 1648 года завершил Тридцатилетнюю войну."],
+["Какие утверждения о Наполеоне верны? Выбери все правильные варианты.",["В 1804 году стал императором","Был королём России","Провёл египетскую кампанию","В 1799 году стал Первым консулом"],[0,2,3],"Наполеон стал Первым консулом в 1799 году, провёл египетскую кампанию и стал императором в 1804 году.",false,true],
+["После смерти Павла I в 1801 году российский престол занял Александр I.",["Верно","Неверно"],0,"После смерти Павла I в 1801 году императором стал его сын Александр I.",true],
+["Что означает французское слово patrie, связанное с понятием патриотизма?",["Свобода","Государственная власть","Народное собрание","Родина, отечество"],3,"Patrie по-французски означает «родина» или «отечество»."],
+["Какой смысл имеет понятие raison d’État?",["Религиозное единство Европы","Государственный интерес или государственная необходимость","Право народа выбирать религию","Наследование престола по старшинству"],1,"Raison d’État означает государственный интерес или государственную необходимость."],
+["Какое государство называлось Речью Посполитой?",["Российская империя","Польско-литовское государство","Священная Римская империя","Османская империя"],1,"Речь Посполитая была польско-литовским государством."]
+];
+const form=document.getElementById('quiz');
+data.forEach((q,i)=>{let multi=!!q[5],tf=!!q[4],s=document.createElement('section');s.className='q';s.dataset.i=i;s.innerHTML='<small class="muted">Вопрос '+(i+1)+(multi?' · несколько ответов':tf?' · верно или неверно':'')+'</small><h2>'+q[0]+'</h2>'+q[1].map((o,j)=>'<label class="opt"><input type="'+(multi?'checkbox':'radio')+'" name="q'+i+'" value="'+j+'"> '+o+'</label>').join('')+'<details><summary>Подсказка</summary><p class="muted">'+[
+'Вспомни событие, связанное со взятием Бастилии.',
+'Подумай, какой документ определяет наследование власти монарха.',
+'Вспомни, что произошло после периода Первого консульства.',
+'Представь, как государства уравновешивают влияние друг друга.',
+'Эта война длилась с 1618 по 1648 год.',
+'Вспомни путь Наполеона к власти и его военные походы.',
+'Вспомни, кто стал следующим российским императором.',
+'Это слово обозначает родину человека.',
+'Выражение связано с обоснованием государственных политических решений.',
+'Это государство объединяло польские и литовские земли.'
+][i]+'</p></details><div class="fb"></div>';form.appendChild(s)});
+function progress(){let n=0;data.forEach((q,i)=>{if(form.querySelectorAll('[name=q'+i+']:checked').length)n++});document.getElementById('prog').value=n;document.getElementById('count').textContent='Отвечено: '+n+' из 10'}
+form.addEventListener('change',progress);
+document.getElementById('check').onclick=()=>{let score=0,answered=0;[...form.children].forEach((s,i)=>{let q=data[i],sel=[...s.querySelectorAll('input:checked')].map(x=>+x.value).sort((a,b)=>a-b),correct=Array.isArray(q[2])?q[2].slice().sort((a,b)=>a-b):[q[2]],ok=sel.length===correct.length&&sel.every((v,j)=>v===correct[j]);if(sel.length)answered++;if(ok)score++;let f=s.querySelector('.fb');f.style.display='block';f.className='fb '+(ok?'good':'bad');f.textContent=(ok?'Верно! ':'Не совсем. ')+q[3]});let r=document.getElementById('result');r.hidden=false;document.getElementById('score').textContent='Результат: '+score+' из 10';document.getElementById('msg').textContent=answered<10?'Ты ответила на '+answered+' из 10 вопросов. Пропущенные вопросы засчитаны как ошибки.':score===10?'Отлично! Все ответы верные.':score>=7?'Хороший результат! Повтори пояснения к ошибкам.':'Посмотри пояснения и попробуй ещё раз.';r.scrollIntoView({behavior:'smooth'})};
+document.getElementById('reset').onclick=()=>{form.reset();form.querySelectorAll('.fb').forEach(f=>{f.style.display='none';f.textContent=''});document.getElementById('result').hidden=true;progress();window.scrollTo({top:0,behavior:'smooth'})};progress();
+</script></body></html>
